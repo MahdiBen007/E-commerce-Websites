@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>دي زاد شوب</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;family=Tajawal:wght@400;700;900&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Tailwind Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            arabic: ["Tajawal", "sans-serif"],
+            latin: ["Poppins", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .slider-image {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-arabic">
+  <!----------------------------------------------------------- Heder-------------------------------------------------------------------- -->
+<header class="bg-white dark:bg-gray-800 shadow-md font-arabic fixed top-0 left-0 w-full z-50 md:rounded-b-2xl">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center ">
+      <a class="flex items-center space-x-2 rtl:space-x-reverse no-underline" href="index.html">
+        <div
+          class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center transform transition-transform duration-300 hover:scale-110 scroll-fade">
+          <span class="text-white font-bold text-sm">DZ</span>
+        </div>
+        <span class="text-blue-800 dark:text-white font-bold text-lg">دي زاد شوب</span>
+      </a>
+      <nav class="hidden md:flex space-x-6 space-x-reverse">
+        <a class="text-blue-600 font-bold underline" href="./index.html">الرئيسية</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold"
+          href="./Proudacts.html">المنتجات</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="./offers.html">العروض</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="./about.html">من نحن</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="./contact.html">تواصل
+          معنا</a>
+      </nav>
+      <div class="flex items-center gap-4 text-gray-700 dark:text-gray-200 text-xl ">
+        <button aria-label="فتح القائمة" class="md:hidden" id="menu-toggle">
+          <i class="fas fa-bars w-6 h-6 hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"></i>
+        </button>
+        <i class="fas fa-moon w-5 h-5 hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"
+          id="theme-toggle"></i>
+        <div class="relative inline-block ">
+          <a href="./My purchases.html">
+            <i
+              class="fas fa-shopping-cart text-2xl hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"></i>
+          </a>
+          <span
+            class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center hidden"
+            id="cart-count">
+            0
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden scroll-fade" id="drawer-backdrop"></div>
+  <aside
+    class="fixed top-[64px] right-0 w-64 h-[calc(100%-64px)] bg-white dark:bg-gray-800 shadow-lg z-50 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col scroll-fade"
+    id="mobile-drawer">
+    <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 scroll-fade">
+      <span class="text-blue-800 dark:text-white font-bold text-xl">القائمة</span>
+      <button aria-label="إغلاق القائمة" id="drawer-close">
+        <i class="w-6 h-6 text-gray-700 dark:text-gray-300 hover:text-red-500 cursor-pointer" data-lucide="x"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col p-4 space-y-6 text-[18px] font-semibold">
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="./index.html">الرئيسية</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="./Proudacts.html">المنتجات</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">العروض</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">من نحن</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">تواصل معنا</a>
+    </nav>
+    <div class="mt-auto p-4 flex flex-col space-y-3 scroll-fade">
+      <button class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+        تسجيل الدخول
+      </button>
+      <button
+        class="bg-gray-200 dark:bg-gray-700 text-blue-700 dark:text-white py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+        إنشاء حساب
+      </button>
+    </div>
+  </aside>
+  <!------------------------------------------------------------------- Mine ---------------------------------------------------------------->
+  <!-- حاوية عامة مع مسافة من الأعلى -->
+  <div class="mt-20 scroll-fade">
+    <!-- الشريط العلوي -->
+    <div
+      class="bg-gradient-to-l from-red-500 to-orange-500 text-white text-sm p-4 dark:from-red-700 dark:to-orange-700 scroll-fade">
+      <div class="flex flex-wrap items-center justify-between gap-2 text-center md:text-right scroll-fade">
+        <span class="font-bold text-lg">🔥 عرض خاص - وفر %13 اليوم فقط!</span>
+        <div class="bg-yellow-400 text-black font-bold px-3 py-1 rounded-full dark:bg-yellow-300 scroll-fade">
+          ⏳ متبقى قطع قليلة في المخزون !
+        </div>
+        <div
+          class="font-mono bg-white bg-opacity-20 px-3 py-1 rounded-full dark:bg-opacity-10 dark:text-white scroll-fade">
+          ⏰ 23:44:54
+        </div>
+      </div>
+    </div>
+    <!-- شريط المعلومات الأخضر -->
+    <div
+      class="bg-green-200 text-green-900 text-sm p-3 border-b border-green-100 dark:bg-green-900 dark:text-green-100 dark:border-green-800 scroll-fade">
+      <div class="flex flex-wrap items-center justify-center gap-4 text-center md:text-right scroll-fade">
+        <div class="flex items-center gap-1 scroll-fade">
+          👁️‍🗨️ <span>52</span> شخص يشاهد الآن
+        </div>
+        <div class="flex items-center gap-1 scroll-fade">
+          ✅ تم بيع 1247 قطعة هذا الأسبوع
+        </div>
+        <div class="flex items-center gap-1 text-yellow-600 dark:text-yellow-300 scroll-fade">
+          🏆 الأكثر مبيعاً في فئته
+        </div>
+        <div class="flex items-center gap-1 text-yellow-500 dark:text-yellow-200 scroll-fade">
+          ⭐ تقييم 4/5 من 3 مراجعة
+        </div>
+      </div>
+    </div>
+    <!-- شريط الضمانات الأزرق -->
+    <div
+      class="bg-blue-50 text-blue-900 text-sm p-3 border-b border-blue-100 dark:bg-blue-900 dark:text-blue-100 dark:border-blue-800 scroll-fade">
+      <div class="flex flex-wrap items-center justify-center gap-4 text-center md:text-right scroll-fade">
+        <div class="flex items-center gap-1 scroll-fade">🔒 %100 دفع آمن</div>
+        <div class="flex items-center gap-1 scroll-fade">🚚 توصيل مجاني</div>
+        <div class="flex items-center gap-1 scroll-fade">🔄 إرجاع مجاني 30 يوم</div>
+        <div class="flex items-center gap-1 scroll-fade">🛡️ ضمان سنتين</div>
+      </div>
+    </div>
+    <!-- مسار التنقل -->
+    <div class="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 scroll-fade">
+      <div class="flex flex-wrap justify-start gap-2 scroll-fade">
+        <a class="hover:underline text-gray-600 dark:text-gray-400" href="#">الرئيسية</a>
+        <span class="text-gray-500 dark:text-gray-600">/</span>
+        <a class="hover:underline text-gray-600 dark:text-gray-400" href="#">المنتجات</a>
+        <span class="text-gray-500 dark:text-gray-600">/</span>
+        <a class="hover:underline text-gray-600 dark:text-gray-400" href="#">إلكترونيات</a>
+        <span class="text-gray-500 dark:text-gray-600">/</span>
+        <span class="text-blue-600 font-semibold dark:text-blue-300">سماعة بلوتوث لاسلكية مع مايكروفون</span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="container mx-auto mt-8 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-xl dark:shadow-gray-800 flex flex-col-reverse md:flex-row-reverse md:max-w-7xl mb-8 scroll-fade">
+    <div class="p-4 w-full md:w-1/2 md:mr-4 mb-6 md:mb-0 scroll-fade">
+      <div class="flex items-center justify-between mb-2 scroll-fade">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
+          سماعة بلوتوث لاسلكية مع ميكروفون
+        </h1>
+        <button
+          class="bg-white text-black py-2 px-4 rounded-md border border-gray-300 hover:bg-gray-100 focus:outline-none active:bg-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:active:bg-gray-600 flex items-center justify-center transform -translate-y-1 shadow-md shadow-gray-400 dark:shadow-black/40">
+          <svg class="h-5 w-5 ml-1" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 8h4.586L13 1.414 6.414 8H11v6h4V8zM5 18h14v2H5v-2z"></path>
+          </svg>
+          <span class="text-sm">مشاركة</span>
+        </button>
+      </div>
+      <div class="text-gray-600 dark:text-gray-300 text-sm mb-4 scroll-fade">
+        <span class="font-semibold">العلامة التجارية:</span> Samsung
+        <span class="mx-2 text-gray-400 dark:text-gray-600">|</span>
+        <span class="font-semibold">الموديل:</span> Galaxy A54 5G
+      </div>
+      <div class="flex items-center mb-4 scroll-fade">
+        <div class="flex text-yellow-400 scroll-fade">
+          <svg class="h-5 w-5" fill="currentColor" viewbox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.927 8.725c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z">
+            </path>
+          </svg>
+          <svg class="h-5 w-5" fill="currentColor" viewbox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.927 8.725c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z">
+            </path>
+          </svg>
+          <svg class="h-5 w-5" fill="currentColor" viewbox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.927 8.725c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z">
+            </path>
+          </svg>
+          <svg class="h-5 w-5" fill="currentColor" viewbox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.927 8.725c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z">
+            </path>
+          </svg>
+          <svg class="h-5 w-5 text-gray-300" fill="currentColor" viewbox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.927 8.725c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z">
+            </path>
+          </svg>
+        </div>
+        <span class="text-gray-600 dark:text-gray-300 mr-2">(3 مراجعات)</span>
+      </div>
+      <div
+        class="relative bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-red-900/30 dark:via-orange-900/30 dark:to-yellow-900/30 rounded-2xl p-4 sm:p-6 md:p-8 border-3 border-red-300 dark:border-red-700 overflow-hidden shadow-2xl mt-6 sm:mt-8 md:mt-10 scroll-fade">
+        <!-- التخفيض + السعر -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 scroll-fade">
+          <!-- السعر -->
+          <div class="scroll-fade">
+            <div
+              class="flex flex-col sm:flex-row items-baseline gap-2 sm:gap-4 mb-3 text-center sm:text-left scroll-fade">
+              <span class="text-3xl sm:text-4xl md:text-5xl font-black text-red-600 dark:text-red-400">3.500 دج</span>
+              <span class="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 line-through relative">
+                4.000 دج
+                <div
+                  class="absolute inset-0 bg-red-500/20 dark:bg-red-400/10 transform -skew-x-12 pointer-events-none scroll-fade">
+                </div>
+              </span>
+            </div>
+            <!-- التوفير والخصم -->
+            <div class="flex flex-col sm:flex-row gap-2 mb-4 items-center scroll-fade">
+              <div
+                class="inline-flex items-center rounded-full bg-gradient-to-r from-red-500 to-rose-500 text-white px-3 py-2 text-base font-bold shadow-xl scroll-fade">
+                💰 توفر 500 دج
+              </div>
+              <div
+                class="inline-flex items-center rounded-full border-2 border-green-600 text-green-600 dark:border-green-400 dark:text-green-400 px-3 py-2 text-base font-bold scroll-fade">
+                🎯 خصم 13%
+              </div>
+            </div>
+          </div>
+          <!-- العداد الزمني -->
+          <div
+            class="text-center sm:w-auto bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/80 dark:to-gray-800/60 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-white/30 dark:border-gray-700/50 scroll-fade">
+            <div
+              class="flex items-center justify-center sm:justify-start gap-2 text-red-600 dark:text-red-400 text-sm font-bold mb-2 scroll-fade">
+              ⏰ العرض ينتهي خلال
+            </div>
+            <div
+              class="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-xl text-base font-black shadow-lg scroll-fade">
+              23:43:47
+            </div>
+          </div>
+        </div>
+        <!-- التحذير -->
+        <div
+          class="bg-gradient-to-r from-orange-100 via-red-100 to-orange-100 dark:from-orange-900/40 dark:via-red-900/40 dark:to-orange-900/40 border border-orange-400 dark:border-orange-700 rounded-2xl p-4 mb-6 shadow-md shadow-orange-200 dark:shadow-orange-900/20 animate-pulse scroll-fade">
+          <div
+            class="flex flex-col sm:flex-row gap-3 items-center text-orange-800 dark:text-orange-200 font-bold scroll-fade">
+            <div
+              class="bg-red-500 text-white p-2 rounded-full animate-bounce shadow-md shadow-red-300 dark:shadow-red-800/50 scroll-fade">
+              ⚠️
+            </div>
+            <span class="text-center sm:text-left text-base sm:text-lg">
+              🚨 تحذير: لم يتبقى إلا قطع قليلة في المخزون!
+            </span>
+          </div>
+          <div class="mt-3 bg-red-200 dark:bg-red-900/40 rounded-full h-3 overflow-hidden scroll-fade">
+            <div
+              class="bg-gradient-to-r from-red-500 to-red-600 dark:from-red-400 dark:to-red-500 h-full w-1/4 animate-pulse rounded-full scroll-fade">
+            </div>
+          </div>
+        </div>
+        <!-- حالة الشحن -->
+        <div
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-4 border-t-2 border-orange-200 dark:border-orange-500 gap-4 scroll-fade">
+          <span class="inline-flex items-center gap-2 font-bold text-green-600 dark:text-green-300 text-base">
+            <span
+              class="w-4 h-4 rounded-full bg-green-500 dark:bg-green-400 animate-pulse shadow-md shadow-green-900/40"></span>
+            ✅ متوفر فوراً للشحن
+          </span>
+          <span class="flex items-center gap-2 text-sm text-green-700 dark:text-green-200 font-semibold">
+            🚚 1-2 أيام عمل
+          </span>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row gap-6 justify-center items-stretch mt-8 scroll-fade">
+        <!-- الكرت الأول -->
+        <div
+          class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/40 dark:to-emerald-900/40 p-6 rounded-2xl border-2 border-green-300 dark:border-green-600 text-center shadow-lg hover:shadow-2xl transition-shadow duration-300 w-full md:w-1/2 scroll-fade">
+          <svg class="lucide lucide-shield mx-auto text-green-700 dark:text-green-300 mb-3" fill="none" height="32"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"
+            width="32" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+            </path>
+          </svg>
+          <p class="text-lg font-bold text-green-900 dark:text-green-200">
+            🛡️ دفع آمن 100%
+          </p>
+          <p class="text-sm text-green-700 dark:text-green-400 mt-1">
+            حماية كاملة لبياناتك
+          </p>
+        </div>
+        <!-- الكرت الثاني -->
+        <div
+          class="bg-gradient-to-br from-blue-50 to-sky-50 dark:from-blue-900/40 dark:to-sky-900/40 p-6 rounded-2xl border-2 border-blue-300 dark:border-blue-600 text-center shadow-lg hover:shadow-2xl transition-shadow duration-300 w-full md:w-1/2 scroll-fade">
+          <svg class="lucide lucide-award mx-auto text-blue-700 dark:text-blue-300 mb-3" fill="none" height="32"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"
+            width="32" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526">
+            </path>
+            <circle cx="12" cy="8" r="6"></circle>
+          </svg>
+          <p class="text-lg font-bold text-blue-900 dark:text-blue-200">
+            🏆 ضمان الجودة
+          </p>
+          <p class="text-sm text-blue-700 dark:text-blue-400 mt-1">
+            منتج أصلي مضمون
+          </p>
+        </div>
+      </div>
+      <div class="space-y-3 mt-8 scroll-fade">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">هاتف Galaxy A54</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed line-clamp-2 transition-all duration-300 ease-in-out"
+          id="productDescription">
+          يأتي هاتف Galaxy A54 مع أحدث التقنيات والميزات المتطورة التي تضمن لك تجربة استخدام استثنائية.
+          يتميز بتصميم أنيق ومقاوم للماء والغبار، وشاشة عالية الدقة توفّر ألوان زاهية وواضحة.
+          النظام مزود بذكاء اصطناعي لتحسين الأداء والبطارية. كما يأتي الهاتف بتصميم جذاب يجمع بين القوة والأناقة،
+          ويمنحك تجربة استخدام مميزة في كل مرة، مع سرعة فائقة وكفاءة في الاستجابة.
+        </p>
+        <div class="text-right scroll-fade">
+          <a class="text-sm text-blue-600 dark:text-blue-400 font-medium hover:underline" href="#" id="toggleButton">
+            عرض أقل
+          </a>
+        </div>
+      </div>
+      <button
+        class="scroll-button block md:hidden whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary hover:bg-primary/90 px-4 py-2 w-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white flex items-center justify-center gap-2 h-14 rounded-xl shadow-lg shadow-red-500/30 hover:shadow-red-600/40 transition-all duration-300 text-lg font-bold animate-pulse mt-8"
+        data-target="#target-section">
+        <svg class="lucide lucide-zap" fill="none" height="20" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z">
+          </path>
+        </svg>
+        <span>🔥 اشتر الآن - عرض محدود!</span>
+      </button>
+
+    </div>
+    <div class="p-4 w-full md:w-1/2 scroll-fade">
+      <div class="hidden sm:flex sm:flex-wrap gap-2 sm:gap-3 mb-4 mr-2 sm:mr-10 scroll-fade">
+        <div
+          class="w-[130px] sm:w-auto h-[48px] sm:h-auto bg-purple-300 dark:bg-purple-700 text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold scroll-fade">
+          <span class="ml-1">👑</span>
+          <span>الأكثر مبيعاً</span>
+        </div>
+        <div
+          class="w-[130px] sm:w-auto h-[48px] sm:h-auto bg-yellow-400 dark:bg-yellow-600 text-black dark:text-yellow-200 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold scroll-fade">
+          <span class="ml-1">🎁</span>
+          <span>شحن مجاني</span>
+        </div>
+        <div
+          class="w-[130px] sm:w-auto h-[48px] sm:h-auto bg-green-500 dark:bg-green-700 text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold scroll-fade">
+          <span class="ml-1">✅</span>
+          <span>متوفر فوراً</span>
+        </div>
+        <div
+          class="w-[130px] sm:w-auto h-[48px] sm:h-auto bg-pink-400 dark:bg-pink-700 text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold scroll-fade">
+          <span class="ml-1">🔥</span>
+          <span>%13 خصم</span>
+        </div>
+      </div>
+      <div
+        class="group relative bg-gray-300 dark:bg-gray-800 w-full sm:w-[90%] max-w-2xl mx-auto h-[450px] sm:h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl dark:shadow-black/50 mb-4 flex items-center justify-center transition-transform duration-700 hover:scale-105 scroll-fade"
+        id="main-display">
+
+        <img alt="Main Product Display" class="absolute inset-0 w-full h-full object-cover" id="main-product-image"
+          src="https://via.placeholder.com/800x600?text=Product+Video" />
+        <video class="absolute inset-0 w-full h-full object-cover hidden" controls="" id="main-product-video">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div
+          class="absolute inset-0 bg-black bg-opacity-30 dark:bg-black dark:bg-opacity-50 flex items-center justify-center z-10 cursor-pointer scroll-fade"
+          id="play-overlay">
+          <button class="text-white text-6xl opacity-80 hover:opacity-100 transition-opacity">
+            <svg class="h-20 w-20" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                fill-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+        <button
+          class="absolute top-1/2 -translate-y-1/2 right-4 z-20 bg-black bg-opacity-50 dark:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          id="prev-btn">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <button
+          class="absolute top-1/2 -translate-y-1/2 left-4 z-20 bg-black bg-opacity-50 dark:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          id="next-btn">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div
+          class="absolute top-4 right-4 bg-red-500 dark:bg-red-600 text-white rounded-lg px-4 py-2 text-lg font-bold shadow-md dark:shadow-red-700 z-20 animate-bounce scroll-fade">
+          -13%
+        </div>
+        <div
+          class="absolute bottom-4 left-4 bg-black bg-opacity-50 dark:bg-black/70 text-white text-xs px-2 py-1 rounded z-20 scroll-fade"
+          id="video-duration">
+          2:30 ▶
+        </div>
+      </div>
+      <div class="flex justify-center w-full mt-4 mb-6 z-20 scroll-fade">
+        <button
+          class="dot-button bg-gray-500 w-2 h-2 rounded-full mx-1 cursor-pointer transition-colors duration-300"></button>
+        <button
+          class="dot-button bg-gray-300 w-2 h-2 rounded-full mx-1 cursor-pointer hover:bg-gray-400 transition-colors duration-300"></button>
+        <button
+          class="dot-button bg-gray-300 w-2 h-2 rounded-full mx-1 cursor-pointer hover:bg-gray-400 transition-colors duration-300"></button>
+        <button
+          class="dot-button bg-gray-300 w-2 h-2 rounded-full mx-1 cursor-pointer hover:bg-gray-400 transition-colors duration-300"></button>
+        <button
+          class="dot-button bg-gray-300 w-2 h-2 rounded-full mx-1 cursor-pointer hover:bg-gray-400 transition-colors duration-300"></button>
+      </div>
+      <div class="flex sm:justify-center gap-3 overflow-x-auto py-2 px-2 scrollbar-hide scroll-fade">
+        <!-- صورة مصغرة -->
+        <img alt="Product thumbnail 1"
+          class="thumbnail min-w-[96px] h-24 object-cover rounded-lg shadow-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition duration-200 hover:scale-105 dark:shadow-black/50"
+          data-src="./images/14.jpeg" data-type="image" src="./images/14.jpeg" />
+        <img alt="Product thumbnail 2"
+          class="thumbnail min-w-[96px] h-24 object-cover rounded-lg shadow-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition duration-200 hover:scale-105 dark:shadow-black/50"
+          data-src="./images/15.jpeg" data-type="image" src="./images/15.jpeg" />
+        <img alt="Product thumbnail 3"
+          class="thumbnail min-w-[96px] h-24 object-cover rounded-lg shadow-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition duration-200 hover:scale-105 dark:shadow-black/50"
+          data-src="./images/16.jpeg" data-type="image" src="./images/16.jpeg" />
+        <img alt="Product thumbnail 4"
+          class="thumbnail min-w-[96px] h-24 object-cover rounded-lg shadow-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition duration-200 hover:scale-105 dark:shadow-black/50"
+          data-src="./images/13.jpeg" data-type="image" src="./images/13.jpeg" />
+        <!-- فيديو مصغر -->
+        <div
+          class="thumbnail relative min-w-[96px] h-24 rounded-lg shadow-md cursor-pointer border-2 border-transparent hover:border-blue-500 flex items-center justify-center overflow-hidden transition duration-200 hover:scale-105 dark:shadow-black/50 scroll-fade"
+          data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-type="video">
+          <img alt="Video thumbnail" class="w-full h-full object-cover" src="./images/9.jpg" />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-30 dark:bg-black/60 flex items-center justify-center pointer-events-none scroll-fade">
+            <svg class="h-8 w-8 text-white opacity-80" fill="currentColor" viewbox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                fill-rule="evenodd"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-6 bg-gradient-to-r from-blue-100 via-white to-green-100 border-2 border-blue-300 rounded-xl p-6 mb-6 shadow-md flex justify-around items-center text-center dark:bg-gradient-to-r dark:from-blue-900 dark:via-gray-900 dark:to-green-900 dark:border-blue-700 dark:shadow-lg scroll-fade">
+        <div class="flex flex-col items-center flex-1 scroll-fade">
+          <div class="flex items-center text-green-700 dark:text-green-400 scroll-fade">
+            <span class="text-3xl font-bold ml-1">100%</span>
+            <svg class="h-8 w-8" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd" d="M2.166 4.975A1 1 0 013 4h14a1 1 0 01.834.498l-7 14a1 1 0 01-1.668 0l-7-14z"
+                fill-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="flex items-center text-gray-800 mt-1 dark:text-gray-300 scroll-fade">
+            <span class="text-sm font-semibold">ضمان آمن</span>
+            <svg class="h-4 w-4 mr-1 text-red-600 dark:text-red-400" fill="currentColor" viewbox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd"
+                d="M10 2a8 8 0 00-8 8c0 2.923 1.517 5.617 4 7.292V18a2 2 0 104 0v-1.708c2.483-1.675 4-4.369 4-7.292a8 8 0 00-8-8zm3 6a1 1 0 10-2 0v2a1 1 0 102 0V8z"
+                fill-rule="evenodd"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="flex flex-col items-center flex-1 px-4 text-center scroll-fade">
+          <div class="flex items-center justify-center text-blue-700 dark:text-blue-400 scroll-fade">
+            <span class="text-xs font-bold ml-1">1247</span>
+            <svg class="h-4 w-4" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M13 6a3 3 0 11-6 0 3 3 0 016 0zm-6 9a5 5 0 015-5h.027A7.547 7.547 0 0112 15h.018a6.577 6.577 0 01-.137 1.567l-2.073 1.037A3.018 3.018 0 017 18.5V15z">
+              </path>
+              <path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 100-2 1 1 0 000 2z"
+                fill-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="flex items-center justify-center text-gray-800 mt-1 dark:text-gray-300 scroll-fade">
+            <span class="text-xs font-semibold">عميل راضي</span>
+            <svg class="h-3 w-3 mr-1 text-gray-700 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 100-2 1 1 0 000 2z"
+                fill-rule="evenodd"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="flex flex-col items-center flex-1 scroll-fade">
+          <div class="flex items-center text-yellow-600 dark:text-yellow-400 scroll-fade">
+            <span class="text-3xl font-bold ml-1">4</span>
+            <svg class="h-8 w-8" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.927 8.725c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z">
+              </path>
+            </svg>
+          </div>
+          <div class="flex items-center text-gray-800 mt-1 dark:text-gray-300 scroll-fade">
+            <span class="text-sm font-semibold">تقييم ممتاز</span>
+            <svg class="h-4 w-4 mr-1 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewbox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.927 8.725c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z">
+              </path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <button
+        class="scroll-button hidden md:flex whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary hover:bg-primary/90 px-4 py-2 w-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white items-center justify-center gap-2 h-14 rounded-xl shadow-lg shadow-red-500/30 hover:shadow-red-600/40 transition-all duration-700 text-lg font-bold animate-pulse transform hover:scale-105"
+        data-target="#target-section">
+        <svg class="lucide lucide-zap" fill="none" height="20" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z">
+          </path>
+        </svg>
+        <span>🔥 اشتر الآن - عرض محدود!</span>
+      </button>
+      <script>
+
+      </script>
+
+    </div>
+  </div>
+  <div
+    class="w-full max-w-7xl bg-white dark:bg-gray-900 dark:text-gray-100 rounded-xl shadow-lg overflow-hidden mx-auto mb-8 hidden dark:shadow-xl scroll-fade"
+    id="target-section">
+    <!-- عنوان التهنئة -->
+    <div
+      class="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-blue-500 text-white px-4 py-2 rounded-xl shadow-md mb-4 mt-6 mr-4 sm:px-6 sm:py-3 sm:rounded-xl sm:shadow-lg md:px-8 md:py-4 md:rounded-2xl md:shadow-xl md:mr-60 scroll-fade">
+      <svg class="lucide lucide-circle-check-big" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+        <path d="m9 11 3 3L22 4"></path>
+      </svg>
+      <span class="text-base font-bold sm:text-lg md:text-2xl">
+        🎉 تهانينا! أنت على بُعد خطوة واحدة من الحصول على منتجك
+      </span>
+    </div>
+    <p class="text-center text-gray-600 dark:text-gray-300 text-sm md:text-base mt-2 mb-6">
+      أدخل بياناتك وستحصل على منتجك خلال 24 ساعة
+    </p>
+    <!-- رأس قسم الطلب -->
+    <div class="w-full bg-blue-600 dark:bg-blue-900 text-white p-4 rounded-t-lg text-right scroll-fade">
+      <h2 class="text-2xl font-bold flex items-center">
+        <svg class="lucide lucide-shopping-bag ml-2" fill="none" height="24" stroke="currentColor"
+          stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+          <path d="M3 6h18"></path>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        إتمام الطلب
+      </h2>
+      <p class="opacity-90 dark:opacity-80">أدخل معلوماتك لإتمام عملية الشراء</p>
+    </div>
+    <form
+      class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 bg-white text-black dark:bg-gray-900 dark:text-white rounded-xl shadow-xl dark:shadow-gray-800">
+      <!-- معلومات العميل -->
+      <div class="space-y-6 scroll-fade">
+        <h3 class="text-lg font-medium mb-4 dark:text-white">معلومات العميل</h3>
+        <div class="relative scroll-fade">
+          <div
+            class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400 dark:text-gray-500 scroll-fade">
+            <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" width="18" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <input
+            class="flex h-10 w-full border px-3 py-2 text-base placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600 rounded-xl bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 pr-10 text-black dark:text-white"
+            id="fullName" placeholder="" required="" type="text" />
+          <label
+            class="text-sm font-medium leading-none absolute right-10 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500 dark:text-gray-400 transition-all duration-300"
+            for="fullName">
+            الاسم الكامل
+          </label>
+        </div>
+        <div class="relative scroll-fade">
+          <div
+            class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400 dark:text-gray-500 scroll-fade">
+            <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" width="18" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+          </div>
+          <input
+            class="flex h-10 w-full border px-3 py-2 text-base placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600 rounded-xl bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 pr-10 text-black dark:text-white"
+            dir="ltr" id="phoneNumber" placeholder="05XXXXXXXX" required="" type="tel" />
+          <label
+            class="text-sm font-medium leading-none absolute right-10 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500 dark:text-gray-400 transition-all duration-300"
+            for="phoneNumber">
+            رقم الهاتف
+          </label>
+        </div>
+        <div class="space-y-2 hidden scroll-fade" id="homeAddressField">
+          <label class="text-sm font-medium leading-none flex items-center gap-1 text-gray-700 dark:text-gray-300"
+            for="homeAddress">
+            <svg class="inline" fill="none" height="16" stroke="currentColor" stroke-linecap="round"
+              stroke-linejoin="round" stroke-width="2" width="16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            العنوان الكامل
+          </label>
+          <input
+            class="flex h-10 w-full border px-3 py-2 text-base placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600 rounded-xl bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-black dark:text-white"
+            id="homeAddress" name="homeAddress" placeholder="أدخل عنوانك بالتفصيل" type="text" />
+        </div>
+        <div class="container mx-auto p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md scroll-fade">
+          <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100">اختار الولاية والبلدية</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 scroll-fade">
+            <div class="space-y-2 scroll-fade">
+              <label class="text-sm font-medium leading-none flex items-center gap-1 text-gray-700 dark:text-gray-300"
+                for="wilaya">
+                <svg class="inline" fill="none" height="16" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="2" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
+                  </path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                الولاية
+              </label>
+              <select
+                class="flex h-10 w-full border px-3 py-2 text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600 rounded-xl bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-black dark:text-white transition-all"
+                id="wilaya" required="">
+                <option disabled="" selected="" value="">اختر الولاية</option>
+              </select>
+            </div>
+            <div class="space-y-2 scroll-fade">
+              <label class="text-sm font-medium leading-none flex items-center gap-1 text-gray-700 dark:text-gray-300"
+                for="commune">
+                <svg class="inline" fill="none" height="16" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="2" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
+                  </path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                البلدية
+              </label>
+              <select
+                class="flex h-10 w-full border px-3 py-2 text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 cursor-not-allowed opacity-50 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-xl text-black dark:text-white"
+                disabled="" id="commune" required="">
+                <option disabled="" selected="" value="">اختر البلدية</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-2 scroll-fade">
+          <label class="text-sm font-medium leading-none flex items-center gap-1 text-gray-700 dark:text-gray-300"
+            for="deliveryMethod">
+            <svg class="inline" fill="none" height="16" stroke="currentColor" stroke-linecap="round"
+              stroke-linejoin="round" stroke-width="2" width="16" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
+              </path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            طريقة التوصيل
+          </label>
+          <select
+            class="flex h-10 w-full border px-3 py-2 text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600 rounded-xl bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-black dark:text-white transition-all"
+            id="deliveryMethod" name="deliveryMethod" required="">
+            <option disabled="" selected="" value="">اختر طريقة التوصيل</option>
+            <option value="office">التوصيل إلى المكتب</option>
+            <option value="home">التوصيل إلى باب المنزل</option>
+          </select>
+        </div>
+        <div class="space-y-2 hidden scroll-fade" id="addressField">
+          <label class="text-sm font-medium text-gray-700 dark:text-gray-300" for="homeAddress">
+            العنوان بالتفصيل
+          </label>
+          <input
+            class="flex h-10 w-full border px-3 py-2 text-base placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600 rounded-xl bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-black dark:text-white"
+            id="homeAddress" placeholder="أدخل عنوانك بالتفصيل" required="" type="text" />
+        </div>
+        <button
+          class="hidden sm:block w-full py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
+          type="submit">
+          إتمام الطلب
+        </button>
+
+      </div>
+      <script>
+        const deliverySelect = document.getElementById('deliveryMethod');
+        const addressField = document.getElementById('addressField');
+        const homeAddressInput = document.getElementById('homeAddress'); // Get the home address input
+
+        deliverySelect.addEventListener('change', () => {
+          if (deliverySelect.value === 'home') {
+            addressField.classList.remove('hidden');
+            homeAddressInput.setAttribute('required', 'true'); // Make address required when visible
+          } else {
+            addressField.classList.add('hidden');
+            homeAddressInput.removeAttribute('required'); // Remove required when hidden
+          }
+        });
+
+        // Optional: Add an event listener to the wilaya (province) select to enable/disable the commune (municipality) select
+        const wilayaSelect = document.getElementById('wilaya');
+        const communeSelect = document.getElementById('commune');
+
+        wilayaSelect.addEventListener('change', () => {
+          if (wilayaSelect.value) {
+            communeSelect.removeAttribute('disabled');
+            communeSelect.classList.remove('cursor-not-allowed', 'opacity-50');
+            communeSelect.setAttribute('required', 'true'); // Make commune required when wilaya is selected
+            // In a real application, you'd populate the commune options here based on the selected wilaya.
+            // For this example, we'll just clear existing options and add a default.
+            communeSelect.innerHTML = '<option value="">اختر البلدية</option><option value="commune1">بلدية أ</option><option value="commune2">بلدية ب</option>';
+          } else {
+            communeSelect.setAttribute('disabled', 'true');
+            communeSelect.classList.add('cursor-not-allowed', 'opacity-50');
+            communeSelect.removeAttribute('required');
+            communeSelect.innerHTML = '<option value="">اختر البلدية</option>'; // Reset commune options
+          }
+        });
+      </script>
+      <!-- ملخص الطلب -->
+      <div class="space-y-6 scroll-fade">
+        <h3 class="text-center sm:text-start text-lg font-medium mb-4 dark:text-white mt-16">ملخص الطلب</h3>
+        <!-- المنتج -->
+        <div
+          class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-xl border border-gray-200 dark:border-gray-600 flex items-center space-x-4 space-x-reverse scroll-fade">
+          <div
+            class="h-20 w-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600 scroll-fade">
+            <img alt="سماعة بلوتوث لاسلكية مع مايكروفون" class="h-full w-full object-cover"
+              src="https://images.unsplash.com/photo-1583394838336-acd977736f90?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=400&amp;q=80&amp;w=400" />
+          </div>
+          <div class="flex-1 min-w-0 scroll-fade">
+            <h4 class="font-medium text-gray-900 dark:text-white truncate">سماعة بلوتوث لاسلكية مع مايكروفون</h4>
+            <p class="text-blue-600 dark:text-blue-400 font-bold unit-price" data-price="3500">3.500 دج</p>
+          </div>
+          <div class="scroll-fade">
+            <div
+              class="flex items-center border border-gray-200 dark:border-gray-600 rounded-full bg-white dark:bg-gray-800 scroll-fade">
+              <button
+                class="w-8 h-8 flex items-center justify-center rounded-full text-gray-500 hover:text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                id="decreaseBtn" type="button">
+                <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14"></path>
+                </svg>
+              </button>
+              <span class="w-8 text-center font-medium text-black dark:text-white" id="quantity">1</span>
+              <button
+                class="w-8 h-8 flex items-center justify-center rounded-full text-gray-500 hover:text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                id="increaseBtn" type="button">
+                <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5v14"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- الملخص -->
+        <div
+          class="border border-gray-200 dark:border-gray-600 border-[0.5px] rounded-lg pt-4 px-4 pb-0 text-sm text-gray-900 dark:text-gray-100 space-y-3 relative scroll-fade">
+          <div class="flex justify-between scroll-fade">
+            <span>سعر المنتج:</span>
+            <span>3.500 دج</span>
+          </div>
+          <div class="flex justify-between scroll-fade">
+            <span>الكمية:</span>
+            <span id="quantityLabel">×1</span>
+          </div>
+          <div class="flex justify-between scroll-fade">
+            <span>المجموع الجزئي:</span>
+            <span id="subtotal">3.500 دج</span>
+          </div>
+          <div class="flex justify-between scroll-fade">
+            <span>تكلفة الشحن:</span>
+            <span id="shipping">800 دج</span>
+          </div>
+          <div
+            class="border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 p-4 mt-4 -mx-4 rounded-b-lg scroll-fade">
+            <div class="flex justify-between items-center scroll-fade">
+              <span class="font-bold text-lg text-gray-900 dark:text-white">الإجمالي:</span>
+              <span class="font-bold text-xl text-blue-600 dark:text-blue-400" id="total">4.300 دج</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        class="block sm:hidden w-full py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
+        type="submit">
+        إتمام الطلب
+      </button>
+
+    </form>
+  </div>
+  <!------------------------------------------------------------------- Footer ---------------------------------------------------------------->
+  <footer
+    class="w-full bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 mt-auto scroll-fade">
+    <!-- محتوى الفوتر -->
+    <div
+      class="pt-10 pb-10 max-w-8xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm border-t border-gray-300 dark:border-gray-700 scroll-fade">
+      <div class="scroll-fade">
+        <h3 class="text-blue-800 dark:text-blue-400 font-bold text-xl mb-2">
+          دي زاد شوب
+        </h3>
+        <p>
+          متجر إلكتروني جزائري يقدم أفضل المنتجات بأسعار تنافسية وجودة عالية.
+        </p>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-800 dark:text-gray-100 mb-2">
+          روابط سريعة
+        </h3>
+        <ul>
+          <li><a class="hover:text-blue-500" href="#">الرئيسية</a></li>
+          <li><a class="hover:text-blue-500" href="#">المنتجات</a></li>
+          <li><a class="hover:text-blue-500" href="#">العروض</a></li>
+          <li><a class="hover:text-blue-500" href="#">من نحن</a></li>
+          <li><a class="hover:text-blue-500" href="#">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-800 dark:text-gray-100 mb-2">
+          خدمة العملاء
+        </h3>
+        <ul>
+          <li><a class="hover:text-blue-500" href="#">الأسئلة الشائعة</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الشحن</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الإرجاع</a></li>
+          <li><a class="hover:text-blue-500" href="#">الشروط والأحكام</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الخصوصية</a></li>
+        </ul>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-900 dark:text-gray-100 mb-2">
+          تواصل معنا
+        </h3>
+        <p>العنوان: الجزائر، العاصمة</p>
+        <p>الهاتف: +213 XXX XXX XXX</p>
+        <p>البريد الإلكتروني: info@dzshop.dz</p>
+        <div class="flex gap-3 mt-3 text-xl text-blue-500 scroll-fade">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fas fa-globe"></i></a>
+        </div>
+      </div>
+    </div>
+    <!-- الحقوق -->
+    <div class="text-center text-xs mt-8 mb-10 text-gray-500 dark:text-gray-400 scroll-fade">
+      © 2025 دي زاد شوب. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <button aria-label="العودة للأعلى"
+    class="hidden fixed bottom-6 right-2 z-50 bg-gradient-to-tr from-blue-500 to-purple-600 p-3 rounded-full shadow-xl hover:scale-110 transition transform duration-300 hover:shadow-2xl animate-pulse-slow group"
+    id="scrollTopBtn">
+    <svg class="h-6 w-6 text-white group-hover:-translate-y-1 transition-transform duration-300" fill="none"
+      stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 15l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+    </svg>
+  </button>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const elements = document.querySelectorAll('.scroll-fade');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+
+</html>

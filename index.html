@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>دي زاد شوب</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;family=Tajawal:wght@400;700;900&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link href="./images/icon.png" rel="icon" />
+  <!-- Tailwind Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            arabic: ["Tajawal", "sans-serif"],
+            latin: ["Poppins", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .slider-image {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-arabic">
+  <!----------------------------------------------------------- Heder-------------------------------------------------------------------- -->
+  <header class="bg-white dark:bg-gray-800 shadow-md font-arabic fixed top-0 left-0 w-full z-50 md:rounded-b-2xl">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a class="flex items-center space-x-2 rtl:space-x-reverse no-underline" href="index.html">
+        <div
+          class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center transform transition-transform duration-300 hover:scale-110 scroll-fade">
+          <span class="text-white font-bold text-sm">DZ</span>
+        </div>
+        <span class="text-blue-800 dark:text-white font-bold text-lg">دي زاد شوب</span>
+      </a>
+      <nav class="hidden md:flex space-x-6 space-x-reverse">
+        <a class="text-blue-600 font-bold underline" href="./index.html">الرئيسية</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold"
+          href="./Proudacts.html">المنتجات</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="./offers.html">العروض</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="./about.html">من نحن</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="#contact">تواصل معنا</a>
+      </nav>
+      <div class="flex items-center gap-4 text-gray-700 dark:text-gray-200 text-xl">
+        <button aria-label="فتح القائمة" class="md:hidden" id="menu-toggle">
+          <i class="fas fa-bars w-6 h-6 hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"></i>
+        </button>
+        <!-- زر تغيير الثيم -->
+        <div class="flex items-center gap-4">
+          <!-- أيقونة الوضع الليلي -->
+          <i class="fas fa-moon w-5 h-5 text-lg hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"
+            id="theme-toggle"></i>
+
+          <!-- أيقونة السلة -->
+          <div class="relative inline-block">
+            <a href="./My purchases.html">
+              <i
+                class="fas fa-shopping-cart text-2xl hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"></i>
+            </a>
+            <span
+              class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center hidden"
+              id="cart-count">
+              0
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden scroll-fade" id="drawer-backdrop"></div>
+  <aside
+    class="fixed top-[64px] right-0 w-64 h-[calc(100%-64px)] bg-white dark:bg-gray-800 shadow-lg z-50 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col scroll-fade"
+    id="mobile-drawer">
+    <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 scroll-fade">
+      <span class="text-blue-800 dark:text-white font-bold text-xl">القائمة</span>
+      <button aria-label="إغلاق القائمة" id="drawer-close">
+        <i class="w-6 h-6 text-gray-700 dark:text-gray-300 hover:text-red-500 cursor-pointer" data-lucide="x"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col p-4 space-y-6 text-[18px] font-semibold">
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="./index.html">الرئيسية</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="./Proudacts.html">المنتجات</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">العروض</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">من نحن</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">تواصل معنا</a>
+    </nav>
+    <div class="mt-auto p-4 flex flex-col space-y-3 scroll-fade">
+      <button class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+        تسجيل الدخول
+      </button>
+      <button
+        class="bg-gray-200 dark:bg-gray-700 text-blue-700 dark:text-white py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+        إنشاء حساب
+      </button>
+    </div>
+  </aside>
+  <!------------------------------------------------------------- section Main--------------------------------------------------------------->
+  <section class="pt-20 max-w-10xl mx-auto px-4 pb-6 scroll-fade">
+    <div class="relative rounded-md overflow-hidden shadow-md dark:shadow-gray-800 scroll-fade">
+      <a href="./images/1.jpg" rel="noopener noreferrer" target="_blank">
+        <img alt="صورة"
+          class="w-full h-auto max-h-[500px] sm:max-h-[400px] object-contain sm:object-cover rounded-md cursor-pointer transition-transform duration-700 hover:scale-105"
+          src="./images/1.jpg" />
+      </a>
+    </div>
+  </section>
+
+  <!-------------------------------------------------------------- section Catigory-------------------------------------------------------------->
+  <section class="px-6 py-10 bg-gray-100 dark:bg-gray-900 scroll-fade">
+    <div class="flex items-center justify-between mb-6 scroll-fade">
+      <h2 class="text-2xl font-bold text-blue-800 dark:text-white">
+        الفئات الرئيسية
+      </h2>
+      <a class="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1" href="#">
+        عرض الكل
+        <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+          <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 scroll-fade">
+      <!-- بطاقة فئة -->
+      <div
+        class="relative h-40 rounded-lg overflow-hidden shadow-md dark:shadow-gray-800 group cursor-pointer scroll-fade">
+        <img alt="منزل ومطبخ"
+          class="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+          src="./images/9.jpg" />
+        <div
+          class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition duration-700 flex items-center justify-center scroll-fade">
+          <span class="text-white font-bold text-lg">منزل ومطبخ</span>
+        </div>
+      </div>
+      <div
+        class="relative h-40 rounded-lg overflow-hidden shadow-md dark:shadow-gray-800 group cursor-pointer scroll-fade">
+        <img alt="جمال وعناية"
+          class="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+          src="./images/10.png" />
+        <div
+          class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition duration-700 flex items-center justify-center scroll-fade">
+          <span class="text-white font-bold text-lg">جمال وعناية</span>
+        </div>
+      </div>
+      <div
+        class="relative h-40 rounded-lg overflow-hidden shadow-md dark:shadow-gray-800 group cursor-pointer scroll-fade">
+        <img alt="إلكترونيات"
+          class="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+          src="./images/9.jpg" />
+        <div
+          class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition duration-700 flex items-center justify-center scroll-fade">
+          <span class="text-white font-bold text-lg">إلكترونيات</span>
+        </div>
+      </div>
+      <div
+        class="relative h-40 rounded-lg overflow-hidden shadow-md dark:shadow-gray-800 group cursor-pointer scroll-fade">
+        <img alt="ملابس"
+          class="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+          src="./images/10.png" />
+        <div
+          class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition duration-700 flex items-center justify-center scroll-fade">
+          <span class="text-white font-bold text-lg">ملابس</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-------------------------------------------------------- section Proudacts----------------------------------------------------------------->
+  <section
+    class="bg-gray-50 dark:bg-gray-900 max-w-screen-xl mx-auto px-4 font-arabic text-center shadow-sm rounded-lg scroll-fade">
+    <div class="text-center mt-4 mb-10 scroll-fade">
+      <h2 class="text-2xl font-bold text-blue-800 dark:text-blue-400 mb-2">
+        منتجاتنا المميزة
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300">
+        اكتشف تشكيلتنا الواسعة من المنتجات عالية الجودة بأسعار تنافسية
+      </p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-6 bg-white dark:bg-gray-900 scroll-fade">
+      <!-- البطاقات -->
+      <div
+        class="product w-full max-w-xs sm:w-[18rem] bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden relative group border border-gray-200 dark:border-gray-700 scroll-fade"
+        data-category="جمال وعناية" data-price="5000" data-available="false">
+        <!-- الخصم -->
+        <div class="absolute bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-bl-xl z-30 scroll-fade">
+          %13 خصم
+        </div>
+
+        <!-- الصورة مع تأثير Hover -->
+        <div class="relative overflow-hidden scroll-fade">
+          <img alt="سماعة"
+            class="w-full h-52 object-cover transform transition-transform duration-700 group-hover:scale-105 z-10"
+            src="./images/8.jpeg" />
+
+          <!-- طبقة تعتيم -->
+          <div
+            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-700 z-20 scroll-fade">
+          </div>
+        </div>
+
+        <!-- المحتوى -->
+        <div class="px-4 pb-4 scroll-fade">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">ملابس</p>
+          <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">
+            sports shoes
+          </h2>
+
+          <!-- الوصف بسطرين مع ... -->
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 overflow-hidden" style="
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+              ">
+            الحذاء الرياضي هو نوع من الأحذية المصممة خصيصًا لتوفير الراحة،
+            الدعم، والثبات أثناء ممارسة الأنشطة البدنية والرياضية. يتميز بخفة
+            وزنه، ومرونة نعله، واحتوائه على وسادة داخلية لامتصاص الصدمات، مما
+            يجعله مثاليًا للجري، التمارين الرياضية، أو الاستخدام اليومي.
+          </p>
+
+          <!-- السعر -->
+          <div class="flex items-center space-x-2 space-x-reverse mb-2 scroll-fade">
+            <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">3.500 دج</span>
+            <span class="line-through text-gray-400 dark:text-gray-500 text-sm">4.000 دج</span>
+          </div>
+
+          <!-- التقييم -->
+          <div class="flex items-center mb-4 scroll-fade">
+            <span class="text-yellow-400 text-xl">★ ★ ★ ★ ☆</span>
+          </div>
+
+          <!-- زر الشراء -->
+          <div class="flex justify-between items-center scroll-fade">
+            <a href="./Product_Page.html">
+              <button class="buy-button bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                اشترِ الآن
+              </button>
+            </a>
+            <button
+              class="add-to-cart border border-gray-300 dark:border-gray-600 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+              🛒
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- البطاقة الأولى -->
+      <div
+        class="product w-full max-w-xs sm:w-[18rem] mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden relative group border border-gray-200 dark:border-gray-700 scroll-fade"
+        data-category="جمال وعناية" data-price="5000" data-available="true">
+        <!-- الخصم -->
+        <div class="absolute bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-bl-xl z-30 scroll-fade">
+          %13 خصم
+        </div>
+        <!-- الصورة مع تأثير Hover -->
+        <div class="relative overflow-hidden scroll-fade">
+          <img alt="سماعة"
+            class="w-full h-52 object-cover transform transition-transform duration-700 group-hover:scale-105 z-10"
+            src="./images/7.png" />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-700 z-20 scroll-fade">
+          </div>
+        </div>
+        <!-- المحتوى -->
+        <div class="px-4 pb-4 scroll-fade">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+            إلكترونيات
+          </p>
+          <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">
+            Kemei KM-5027‏
+          </h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 overflow-hidden" style="
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+              ">
+            ماكينة الحلاقة Kemei KM-5027 هي أداة حلاقة احترافية متعددة
+            الوظائف، مصممة خصيصًا لتمنحك تجربة قص دقيقة وناعمة سواء في المنزل
+            أو في صالون الحلاقة. تتميز بمحرك قوي، وشفرات حادة مطلية
+            بالتيتانيوم، مع شاشة LCD ذكية تُظهر مستوى البطارية وسرعة التشغيل
+          </p>
+          <div class="flex items-center space-x-2 space-x-reverse mb-2 scroll-fade">
+            <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">3.500 دج</span>
+            <span class="line-through text-gray-400 dark:text-gray-500 text-sm">4.000 دج</span>
+          </div>
+          <div class="flex items-center mb-4 scroll-fade">
+            <span class="text-yellow-400 text-xl">★ ★ ★ ★ ☆</span>
+          </div>
+          <div class="flex justify-between items-center scroll-fade">
+            <a href="./Product_Page.html">
+              <button class="buy-button bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                اشترِ الآن
+              </button>
+            </a>
+            <button
+              class="add-to-cart border border-gray-300 dark:border-gray-600 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+              🛒
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- البطاقة الثانية -->
+      <div
+        class="product w-full max-w-xs sm:w-[18rem] mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden relative group border border-gray-200 dark:border-gray-700 scroll-fade"
+        data-category="جمال وعناية" data-price="5000" data-available="true">
+        <!-- الخصم -->
+        <div class="absolute bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-bl-xl z-30 scroll-fade">
+          %13 خصم
+        </div>
+        <!-- الصورة مع تأثير Hover -->
+        <div class="relative overflow-hidden scroll-fade">
+          <img alt="سماعة"
+            class="w-full h-52 object-cover transform transition-transform duration-700 group-hover:scale-105 z-10"
+            src="./images/16.jpeg" />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-700 z-20 scroll-fade">
+          </div>
+        </div>
+        <!-- المحتوى -->
+        <div class="px-4 pb-4 scroll-fade">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+            إلكترونيات
+          </p>
+          <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">
+            iphone 16 pro max
+          </h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 overflow-hidden" style="
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+              ">
+            ارتقِ بتجربتك إلى مستوى جديد مع iPhone 16 Pro Max، أقوى هاتف من
+            Apple حتى الآن. يتميز بشاشة Super Retina XDR مذهلة بحجم 6.9 بوصة،
+            ومعالج A18 Pro الخارق، ونظام كاميرا احترافي بدقة 48 ميغابكسل،
+            لتمنحك أداءً لا يُضاهى في كل لحظة.
+          </p>
+          <div class="flex items-center space-x-2 space-x-reverse mb-2 scroll-fade">
+            <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">30.500 دج</span>
+            <span class="line-through text-gray-400 dark:text-gray-500 text-sm">34.000 دج</span>
+          </div>
+          <div class="flex items-center mb-4 scroll-fade">
+            <span class="text-yellow-400 text-xl">★ ★ ★ ★ ☆</span>
+          </div>
+          <div class="flex justify-between items-center scroll-fade">
+            <a href="./Product_Page.html">
+              <button class="buy-button bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                اشترِ الآن
+              </button>
+            </a>
+            <button
+              class="add-to-cart border border-gray-300 dark:border-gray-600 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+              🛒
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="product w-full max-w-xs sm:w-[18rem] mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden relative group border border-gray-200 dark:border-gray-700 scroll-fade"
+        data-category="جمال وعناية" data-price="5000" data-available="false">
+        <!-- الخصم -->
+        <div class="absolute bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-bl-xl z-30 scroll-fade">
+          %13 خصم
+        </div>
+        <!-- الصورة مع تأثير Hover -->
+        <div class="relative overflow-hidden scroll-fade">
+          <img alt="سماعة"
+            class="w-full h-52 object-cover transform transition-transform duration-700 group-hover:scale-105 z-10"
+            src="./images/15.jpeg" />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-700 z-20 scroll-fade">
+          </div>
+        </div>
+        <!-- المحتوى -->
+        <div class="px-4 pb-4 scroll-fade">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+            إلكترونيات
+          </p>
+          <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">
+            galaxy s25 ultra
+          </h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 overflow-hidden" style="
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+              ">
+            Galaxy S25 Ultra هو هاتف ذكي فائق الأداء من سامسونج، يتميز بتصميم
+            أنيق وهيكل قوي، وشاشة كبيرة من نوع AMOLED بدقة عالية تدعم معدل
+            تحديث مرتفع (قد يصل إلى 120Hz)، مع كاميرا رباعية احترافية بدقة تصل
+            إلى 200 ميغابكسل، ودعم لتقنيات الذكاء الاصطناعي في التصوير. يعمل
+            بمعالج فائق السرعة (Exynos أو Snapdragon من الجيل الأحدث)، ويدعم
+            قلم S Pen، بالإضافة إلى بطارية كبيرة تدوم طويلًا وشحن سريع جدًا.
+          </p>
+          <div class="flex items-center space-x-2 space-x-reverse mb-2 scroll-fade">
+            <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">20.500 دج</span>
+            <span class="line-through text-gray-400 dark:text-gray-500 text-sm">22.000 دج</span>
+          </div>
+          <div class="flex items-center mb-4 scroll-fade">
+            <span class="text-yellow-400 text-xl">★ ★ ★ ★ ☆</span>
+          </div>
+          <div class="flex justify-between items-center scroll-fade">
+            <a href="./Product_Page.html">
+              <button class="buy-button bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                اشترِ الآن
+              </button>
+            </a>
+            <button
+              class="add-to-cart border border-gray-300 dark:border-gray-600 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+              🛒
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="hidden fixed bottom-4 right-4 bg-white border border-gray-300 p-4 rounded-lg shadow-lg text-sm max-w-xs w-full z-50 scroll-fade"
+      id="alert-box">
+      <h2 class="font-bold text-gray-800 mb-1" id="alert-title">تنبيه</h2>
+      <p class="text-gray-600" id="alert-message">
+        هذا المنتج مضاف مسبقًا إلى السلة.
+      </p>
+    </div>
+    <div class="flex items-center justify-center py-10 scroll-fade">
+      <div class="w-fit scroll-fade">
+        <a class="inline-block" href="./Proudacts.html">
+          <button
+            class="bg-white dark:bg-gray-900 border-2 border-blue-500 text-blue-600 dark:text-blue-400 px-8 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors font-semibold -ml-8">
+            عرض كل المنتجات
+          </button>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-----------------------------------------------------------------Section_coments--------------------------------------------------------->
+  <section class="py-12 px-6 md:px-16 scroll-fade">
+    <!-- العنوان -->
+    <div class="text-center mb-12 scroll-fade">
+      <h2 class="text-3xl font-bold text-blue-800 dark:text-blue-400 mb-2">
+        ما يقوله عملاؤنا
+      </h2>
+      <p class="text-gray-500 dark:text-gray-300">
+        نفتخر بآراء عملائنا الكرام عن تجربتهم معنا
+      </p>
+    </div>
+    <!-- المراجعات -->
+    <div class="flex justify-center gap-8 mb-16 flex-wrap scroll-fade" id="chatReviews">
+      <!-- مراجعة واحدة (مكررة) -->
+      <div class="flex flex-col items-center text-right max-w-xs scroll-fade">
+        <div class="flex items-end space-x-4 space-x-reverse w-full scroll-fade">
+          <img alt="عميل" class="w-10 h-10 rounded-full flex-shrink-0" src="https://i.pravatar.cc/40?img=12" />
+          <div class="bg-blue-100 dark:bg-blue-900 rounded-2xl shadow w-64 overflow-hidden scroll-fade">
+            <img alt="صورة شات 1"
+              class="w-full h-36 object-cover cursor-pointer transition duration-300 hover:scale-105"
+              onclick="openModal('./images/9.jpg')" src="./images/9.jpg" />
+          </div>
+        </div>
+        <div class="flex items-center justify-between mt-2 text-sm text-gray-600 dark:text-gray-300 w-64 scroll-fade">
+          <div class="font-semibold scroll-fade">عبد الرحمن خليفة</div>
+          <div class="text-yellow-400 scroll-fade">★★★★★</div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center text-right max-w-xs scroll-fade">
+        <div class="flex items-end space-x-4 space-x-reverse w-full scroll-fade">
+          <img alt="عميل" class="w-10 h-10 rounded-full flex-shrink-0" src="https://i.pravatar.cc/40?img=12" />
+          <div class="bg-blue-100 dark:bg-blue-900 rounded-2xl shadow w-64 overflow-hidden scroll-fade">
+            <img alt="صورة شات 2"
+              class="w-full h-36 object-cover cursor-pointer transition duration-300 hover:scale-105"
+              onclick="openModal('./images/11.jpg')" src="./images/11.jpg" />
+          </div>
+        </div>
+        <div class="flex items-center justify-between mt-2 text-sm text-gray-600 dark:text-gray-300 w-64 scroll-fade">
+          <div class="font-semibold scroll-fade">عبد الرحمن خليفة</div>
+          <div class="text-yellow-400 scroll-fade">★★★★★</div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center text-right max-w-xs scroll-fade">
+        <div class="flex items-end space-x-4 space-x-reverse w-full scroll-fade">
+          <img alt="عميل" class="w-10 h-10 rounded-full flex-shrink-0" src="https://i.pravatar.cc/40?img=12" />
+          <div class="bg-blue-100 dark:bg-blue-900 rounded-2xl shadow w-64 overflow-hidden scroll-fade">
+            <img alt="صورة شات 2"
+              class="w-full h-36 object-cover cursor-pointer transition duration-300 hover:scale-105"
+              onclick="openModal('./images/11.jpg')" src="./images/11.jpg" />
+          </div>
+        </div>
+        <div class="flex items-center justify-between mt-2 text-sm text-gray-600 dark:text-gray-300 w-64 scroll-fade">
+          <div class="font-semibold scroll-fade">عبد الرحمن خليفة</div>
+          <div class="text-yellow-400 scroll-fade">★★★★★</div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center text-right max-w-xs scroll-fade">
+        <div class="flex items-end space-x-4 space-x-reverse w-full scroll-fade">
+          <img alt="عميل" class="w-10 h-10 rounded-full flex-shrink-0" src="https://i.pravatar.cc/40?img=12" />
+          <div class="bg-blue-100 dark:bg-blue-900 rounded-2xl shadow w-64 overflow-hidden scroll-fade">
+            <img alt="صورة شات 2"
+              class="w-full h-36 object-cover cursor-pointer transition duration-300 hover:scale-105"
+              onclick="openModal('./images/11.jpg')" src="./images/11.jpg" />
+          </div>
+        </div>
+        <div class="flex items-center justify-between mt-2 text-sm text-gray-600 dark:text-gray-300 w-64 scroll-fade">
+          <div class="font-semibold scroll-fade">عبد الرحمن خليفة</div>
+          <div class="text-yellow-400 scroll-fade">★★★★★</div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center text-right max-w-xs scroll-fade">
+        <div class="flex items-end space-x-4 space-x-reverse w-full scroll-fade">
+          <img alt="عميل" class="w-10 h-10 rounded-full flex-shrink-0" src="https://i.pravatar.cc/40?img=12" />
+          <div class="bg-blue-100 dark:bg-blue-900 rounded-2xl shadow w-64 overflow-hidden scroll-fade">
+            <img alt="صورة شات 3"
+              class="w-full h-36 object-cover cursor-pointer transition duration-300 hover:scale-105"
+              onclick="openModal('./images/12.jpg')" src="./images/12.jpg" />
+          </div>
+        </div>
+        <div class="flex items-center justify-between mt-2 text-sm text-gray-600 dark:text-gray-300 w-64 scroll-fade">
+          <div class="font-semibold scroll-fade">عبد الرحمن خليفة</div>
+          <div class="text-yellow-400 scroll-fade">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <!-- المودال (مرة واحدة فقط) -->
+    <div
+      class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 transition duration-300 scroll-fade"
+      id="imageModal" onclick="closeModal()">
+      <div class="relative max-w-4xl w-full px-4 scroll-fade" onclick="event.stopPropagation()">
+        <button class="absolute top-2 right-2 text-white text-3xl font-bold z-10 hover:text-red-400 transition"
+          onclick="closeModal()">
+          ×
+        </button>
+        <img alt="صورة مكبرة"
+          class="w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl transition duration-500 scale-105"
+          id="modalImage" src="" />
+      </div>
+    </div>
+    <!-- المميزات -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center mt-10 scroll-fade">
+      <div class="scroll-fade">
+        <div class="text-blue-500 text-4xl mb-2 scroll-fade">
+          <i class="fas fa-shipping-fast"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 dark:text-white mb-1">
+          توصيل سريع
+        </h4>
+        <p class="text-sm text-gray-500 dark:text-gray-300">
+          نوصل إلى جميع ولايات الجزائر
+        </p>
+      </div>
+      <div class="scroll-fade">
+        <div class="text-blue-500 text-4xl mb-2 scroll-fade">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 dark:text-white mb-1">
+          منتجات موثوقة
+        </h4>
+        <p class="text-sm text-gray-500 dark:text-gray-300">
+          نضمن لك جودة المنتج
+        </p>
+      </div>
+      <div class="scroll-fade">
+        <div class="text-blue-500 text-4xl mb-2 scroll-fade">
+          <i class="fas fa-credit-card"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 dark:text-white mb-1">
+          طرق دفع آمنة
+        </h4>
+        <p class="text-sm text-gray-500 dark:text-gray-300">
+          دفع عند الاستلام أو إلكترونيا
+        </p>
+      </div>
+      <div class="scroll-fade">
+        <div class="text-blue-500 text-4xl mb-2 scroll-fade">
+          <i class="fas fa-undo"></i>
+        </div>
+        <h4 class="font-bold text-gray-800 dark:text-white mb-1">
+          إرجاع مجاني
+        </h4>
+        <p class="text-sm text-gray-500 dark:text-gray-300">
+          ضمان استرجاع خلال 7 أيام
+        </p>
+      </div>
+    </div>
+  </section>
+  <!------------------------------------------------------------------- Footer ---------------------------------------------------------------->
+  <footer
+    class="w-full bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 mt-auto scroll-fade"
+    id="contact">
+    <!-- النشرة الإخبارية -->
+    <div class="w-full bg-blue-600 text-white py-10 px-4 sm:px-6 lg:px-8 text-center scroll-fade">
+      <div class="max-w-screen-xl mx-auto scroll-fade">
+        <h2 class="text-2xl font-bold mb-2">انضم إلى نشرتنا الإخبارية</h2>
+        <p class="mb-6">
+          اشترك في نشرتنا الإخبارية للحصول على آخر العروض والخصومات
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-2 max-w-md mx-auto scroll-fade">
+          <input class="flex-1 w-full px-4 py-2 rounded-md text-gray-800 dark:text-gray-900 focus:outline-none"
+            placeholder="البريد الإلكتروني" type="email" />
+          <button class="bg-green-500 hover:bg-green-600 transition px-4 py-2 rounded-md text-white font-semibold">
+            اشترك الآن
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- محتوى الفوتر -->
+    <div
+      class="pt-10 pb-10 max-w-8xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm border-t border-gray-300 dark:border-gray-700 scroll-fade">
+      <div class="scroll-fade">
+        <h3 class="text-blue-800 dark:text-blue-400 font-bold text-xl mb-2">
+          دي زاد شوب
+        </h3>
+        <p>
+          متجر إلكتروني جزائري يقدم أفضل المنتجات بأسعار تنافسية وجودة عالية.
+        </p>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-800 dark:text-gray-100 mb-2">
+          روابط سريعة
+        </h3>
+        <ul>
+          <li><a class="hover:text-blue-500" href="#">الرئيسية</a></li>
+          <li><a class="hover:text-blue-500" href="#">المنتجات</a></li>
+          <li><a class="hover:text-blue-500" href="#">العروض</a></li>
+          <li><a class="hover:text-blue-500" href="#">من نحن</a></li>
+          <li><a class="hover:text-blue-500" href="#">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-800 dark:text-gray-100 mb-2">
+          خدمة العملاء
+        </h3>
+        <ul>
+          <li><a class="hover:text-blue-500" href="#">الأسئلة الشائعة</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الشحن</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الإرجاع</a></li>
+          <li><a class="hover:text-blue-500" href="#">الشروط والأحكام</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الخصوصية</a></li>
+        </ul>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-900 dark:text-gray-100 mb-2">
+          تواصل معنا
+        </h3>
+        <p>العنوان: الجزائر، العاصمة</p>
+        <p>الهاتف: +213 XXX XXX XXX</p>
+        <p>البريد الإلكتروني: info@dzshop.dz</p>
+        <div class="flex gap-3 mt-3 text-xl text-blue-500 scroll-fade">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fas fa-globe"></i></a>
+        </div>
+      </div>
+    </div>
+    <!-- الحقوق -->
+    <div class="text-center text-xs mt-8 mb-10 text-gray-500 dark:text-gray-400 scroll-fade">
+      © 2025 دي زاد شوب. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <button aria-label="العودة للأعلى"
+    class="hidden fixed bottom-6 right-2 z-50 bg-gradient-to-tr from-blue-500 to-purple-600 p-3 rounded-full shadow-xl hover:scale-110 transition transform duration-300 hover:shadow-2xl animate-pulse-slow group"
+    id="scrollTopBtn">
+    <svg class="h-6 w-6 text-white group-hover:-translate-y-1 transition-transform duration-300" fill="none"
+      stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 15l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+    </svg>
+  </button>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const elements = document.querySelectorAll(".scroll-fade");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        }
+      );
+      elements.forEach((el) => observer.observe(el));
+    });
+  </script>
+</body>
+
+</html>

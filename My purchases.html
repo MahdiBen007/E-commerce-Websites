@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>دي زاد شوب</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;family=Tajawal:wght@400;700;900&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Tailwind Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            arabic: ["Tajawal", "sans-serif"],
+            latin: ["Poppins", "sans-serif"],
+          },
+        },
+      },
+    };
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {},
+      },
+      plugins: [
+        function ({ addUtilities }) {
+          addUtilities({
+            ".scrollbar-none": {
+              "scrollbar-width": "none",
+              "-ms-overflow-style": "none",
+            },
+            ".scrollbar-none::-webkit-scrollbar": {
+              display: "none",
+            },
+          });
+        },
+      ],
+    };
+  </script>
+  <style>
+    .slider-image {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-arabic">
+  <!----------------------------------------------------------- Heder-------------------------------------------------------------------- -->
+ <header class="bg-white dark:bg-gray-800 shadow-md font-arabic fixed top-0 left-0 w-full z-50 md:rounded-b-2xl">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center ">
+      <a class="flex items-center space-x-2 rtl:space-x-reverse no-underline" href="index.html">
+        <div
+          class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center transform transition-transform duration-300 hover:scale-110 scroll-fade">
+          <span class="text-white font-bold text-sm">DZ</span>
+        </div>
+        <span class="text-blue-800 dark:text-white font-bold text-lg">دي زاد شوب</span>
+      </a>
+      <nav class="hidden md:flex space-x-6 space-x-reverse">
+        <a class="flex items-center space-x-2 rtl:space-x-reverse no-underline" href="./index.html">الرئيسية</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold"
+          href="./Proudacts.html">المنتجات</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="./offers.html">العروض</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="./about.html">من نحن</a>
+        <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-semibold" href="./contact.html">تواصل
+          معنا</a>
+      </nav>
+      <div class="flex items-center gap-4 text-gray-700 dark:text-gray-200 text-xl ">
+        <button aria-label="فتح القائمة" class="md:hidden" id="menu-toggle">
+          <i class="fas fa-bars w-6 h-6 hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"></i>
+        </button>
+        <i class="fas fa-moon w-5 h-5 hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"
+          id="theme-toggle"></i>
+        <div class="relative inline-block ">
+          <a href="./My purchases.html">
+            <i
+              class="fas fa-shopping-cart text-2xl hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"></i>
+          </a>
+          <span
+            class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center hidden"
+            id="cart-count">
+            0
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden scroll-fade" id="drawer-backdrop"></div>
+  <aside
+    class="fixed top-[64px] right-0 w-64 h-[calc(100%-64px)] bg-white dark:bg-gray-800 shadow-lg z-50 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col scroll-fade"
+    id="mobile-drawer">
+    <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 scroll-fade">
+      <span class="text-blue-800 dark:text-white font-bold text-xl">القائمة</span>
+      <button aria-label="إغلاق القائمة" id="drawer-close">
+        <i class="w-6 h-6 text-gray-700 dark:text-gray-300 hover:text-red-500 cursor-pointer" data-lucide="x"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col p-4 space-y-6 text-[18px] font-semibold">
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="./index.html">الرئيسية</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="./Proudacts.html">المنتجات</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">العروض</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">من نحن</a>
+      <a class="text-gray-700 dark:text-gray-300 hover:text-blue-600" href="#">تواصل معنا</a>
+    </nav>
+    <div class="mt-auto p-4 flex flex-col space-y-3 scroll-fade">
+      <button class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+        تسجيل الدخول
+      </button>
+      <button
+        class="bg-gray-200 dark:bg-gray-700 text-blue-700 dark:text-white py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+        إنشاء حساب
+      </button>
+    </div>
+  </aside>
+  <!-------------------------------------------------------------- section Main--------------------------------------------------------------->
+  <section class="container mx-auto p-6 mt-20 mb-20 scroll-fade " dir="rtl">
+    <h2 class="text-2xl font-bold mb-6 text-right">سلة التسوق</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 scroll-fade" id="cart-content">
+      <!-- المنتجات - توضع على اليسار (col-span 2) -->
+      <div class="lg:col-span-2 scroll-fade">
+        <div
+          class="bg-white dark:bg-gray-900 rounded-lg shadow border border-gray-300 dark:border-white/20 scroll-fade">
+          <!-- Wrapper لتفعيل تمرير أفقي على الشاشات الصغيرة -->
+          <div class="overflow-x-auto scroll-fade">
+            <!-- حاوية التمرير العمودي للمنتجات -->
+            <div class="max-h-[360px] overflow-y-auto scrollbar-none scroll-fade">
+              <table class="min-w-full text-right text-sm sm:text-base">
+                <thead class="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 sticky top-0 z-10">
+                  <tr>
+                    <th class="px-2 sm:px-4 py-3">المنتج</th>
+                    <th class="px-2 sm:px-4 py-3">السعر</th>
+                    <th class="px-2 sm:px-4 py-3">الكمية</th>
+                    <th class="px-2 sm:px-4 py-3">الإجمالي</th>
+                    <th class="px-2 sm:px-4 py-3">حذف النتج</th>
+                    <th class="px-2 sm:px-4 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-800 dark:text-gray-200" id="cart-table-body">
+                  <!-- سيتم ملؤه بواسطة JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- زر تفريغ السلة -->
+        <div class="mt-4 flex justify-between items-center scroll-fade">
+          <a class="text-blue-600 hover:underline" href="./Proudacts.html">← العودة للتسوق</a>
+          <button class="text-red-500 border border-red-500 px-4 py-2 rounded hover:bg-red-50 flex items-center gap-2"
+            id="clear-cart" onclick="clearCart()">
+            🗑️ تفريغ السلة
+          </button>
+        </div>
+      </div>
+      <!-- ملخص الطلب - يوضع على اليمين -->
+      <div
+        class="lg:col-span-1 border rounded-lg p-6 bg-white dark:bg-gray-900 shadow text-right order-1 lg:order-2 dark:border-white/20 scroll-fade"
+        id="cart-summary">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
+          ملخص الطلب
+        </h3>
+        <div class="flex flex-row-reverse justify-between mb-2 text-gray-800 dark:text-gray-200 scroll-fade">
+          <span>المجموع الفرعي</span>
+          <span id="subtotal">0 دج</span>
+          <!-- القيمة ستتحدث ديناميكياً -->
+        </div>
+        <div class="flex flex-row-reverse justify-between mb-2 text-gray-800 dark:text-gray-200 scroll-fade">
+          <span>تكلفة الشحن</span>
+          <span id="shipping">800 دج</span>
+        </div>
+        <div
+          class="border-t pt-2 flex flex-row-reverse justify-between font-bold text-gray-900 dark:text-gray-100 dark:border-white/20 scroll-fade">
+          <span>الإجمالي</span>
+          <span id="total">0 دج</span>
+          <!-- القيمة ستتحدث ديناميكياً -->
+        </div>
+        <!-- كود الخصم -->
+        <div class="mt-4 scroll-fade">
+          <label class="block mb-2 text-gray-800 dark:text-gray-200">هل لديك كود خصم؟</label>
+          <div class="flex flex-row-reverse scroll-fade">
+            <input
+              class="border rounded-l w-full px-3 py-2 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 dark:border-white/20"
+              id="coupon-code" placeholder="أدخل كود الخصم" type="text" />
+            <button class="bg-blue-500 text-white px-4 rounded-r hover:bg-blue-600" id="apply-coupon">
+              تطبيق
+            </button>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            جرب الكود: <span class="font-mono">DZSHOP10</span>
+          </p>
+        </div>
+        <!-- زر إتمام الطلب -->
+        <button class="mt-6 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 font-bold">
+          إتمام الطلب
+        </button>
+      </div>
+    </div>
+    <!-- رسالة السلة الفارغة -->
+    <div class="hidden text-center rounded-lg p-8 mt-6 mb-20 scroll-fade" id="empty-cart-message">
+      <div class="text-5xl text-gray-400 mb-4 scroll-fade">
+        <i class="fas fa-shopping-cart"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">سلة التسوق فارغة</h3>
+      <p class="text-gray-600 mb-4">
+        لم تقم بإضافة أي منتجات إلى سلة التسوق بعد
+      </p>
+      <a class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 font-semibold inline-block"
+        href="./Proudacts.html">
+        تصفح المنتجات
+      </a>
+    </div>
+    <script></script>
+  </section>
+  <!------------------------------------------------------------------- Footer ---------------------------------------------------------------->
+  <footer
+    class="w-full bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 mt-auto scroll-fade">
+    <div
+      class="pt-8 pb-10 max-w-8xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm border-t border-gray-300 dark:border-gray-700 scroll-fade">
+      <div class="scroll-fade">
+        <h3 class="text-blue-800 dark:text-blue-400 font-bold text-xl mb-2">
+          دي زاد شوب
+        </h3>
+        <p>
+          متجر إلكتروني جزائري يقدم أفضل المنتجات بأسعار تنافسية وجودة عالية.
+        </p>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-800 dark:text-gray-100 mb-2">
+          روابط سريعة
+        </h3>
+        <ul>
+          <li><a class="hover:text-blue-500" href="#">الرئيسية</a></li>
+          <li><a class="hover:text-blue-500" href="#">المنتجات</a></li>
+          <li><a class="hover:text-blue-500" href="#">العروض</a></li>
+          <li><a class="hover:text-blue-500" href="#">من نحن</a></li>
+          <li><a class="hover:text-blue-500" href="#">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-800 dark:text-gray-100 mb-2">
+          خدمة العملاء
+        </h3>
+        <ul>
+          <li><a class="hover:text-blue-500" href="#">الأسئلة الشائعة</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الشحن</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الإرجاع</a></li>
+          <li><a class="hover:text-blue-500" href="#">الشروط والأحكام</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الخصوصية</a></li>
+        </ul>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-900 dark:text-gray-100 mb-2">
+          تواصل معنا
+        </h3>
+        <p>العنوان: الجزائر، العاصمة</p>
+        <p>الهاتف: +213 XXX XXX XXX</p>
+        <p>البريد الإلكتروني: info@dzshop.dz</p>
+        <div class="flex gap-3 mt-3 text-xl text-blue-500 scroll-fade">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fas fa-globe"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-xs mt-8 mb-10 text-gray-500 dark:text-gray-400 scroll-fade">
+      © 2025 دي زاد شوب. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+  <button aria-label="العودة للأعلى"
+    class="hidden fixed bottom-6 right-2 z-50 bg-gradient-to-tr from-blue-500 to-purple-600 p-3 rounded-full shadow-xl hover:scale-110 transition transform duration-300 hover:shadow-2xl animate-pulse-slow group"
+    id="scrollTopBtn">
+    <svg class="h-6 w-6 text-white group-hover:-translate-y-1 transition-transform duration-300" fill="none"
+      stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 15l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+    </svg>
+  </button>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const elements = document.querySelectorAll('.scroll-fade');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>دي زاد شوب</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;family=Tajawal:wght@400;700;900&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Tailwind Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            arabic: ["Tajawal", "sans-serif"],
+            latin: ["Poppins", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .slider-image {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-arabic">
+  <!----------------------------------------------------------- Heder-------------------------------------------------------------------- -->
+<header class="bg-white dark:bg-gray-800 shadow-md font-arabic fixed top-0 left-0 w-full z-50 md:rounded-b-2xl">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a class="flex items-center space-x-2 rtl:space-x-reverse no-underline" href="index.html">
+        <div
+          class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center transform transition-transform duration-300 hover:scale-110 scroll-fade">
+          <span class="text-white font-bold text-sm">DZ</span>
+        </div>
+        <span class="text-blue-800 dark:text-blue-300 font-bold text-lg">دي زاد شوب</span>
+      </a>
+      <nav class="hidden md:flex space-x-6 space-x-reverse">
+        <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold"
+          href="./index.html">الرئيسية</a>
+        <a class="text-blue-600 font-bold underline" href="./Proudacts.html">المنتجات</a>
+        <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold"
+          href="./offers.html">العروض</a>
+        <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold"
+          href="./about.html">من نحن</a>
+        <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold"
+          href="./contact.html">تواصل
+          معنا</a>
+      </nav>
+      <div class="flex items-center gap-4 text-gray-700 dark:text-gray-200 text-xl">
+        <button aria-label="فتح القائمة" class="md:hidden" id="menu-toggle">
+          <i
+            class="fas fa-bars w-6 h-6 hover:scale-110 transition-transform cursor-pointer hover:text-blue-600 dark:hover:text-blue-400"></i>
+        </button>
+        <i class="fas fa-moon w-5 h-5 hover:scale-110 transition-transform cursor-pointer hover:text-blue-600"
+          id="theme-toggle"></i>
+        <div class="relative inline-block ">
+          <a href="./My purchases.html">
+            <i
+              class="fas fa-shopping-cart text-2xl hover:scale-110 transition-transform cursor-pointer hover:text-blue-600 dark:hover:text-blue-400"></i>
+          </a>
+          <span
+            class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center hidden"
+            id="cart-count">
+            0
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden scroll-fade" id="drawer-backdrop"></div>
+  <aside
+    class="fixed top-[64px] right-0 w-64 h-[calc(100%-64px)] bg-white dark:bg-gray-800 shadow-lg z-50 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col scroll-fade"
+    id="mobile-drawer">
+    <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 scroll-fade">
+      <span class="text-blue-800 dark:text-blue-300 font-bold text-xl">القائمة</span>
+      <button aria-label="إغلاق القائمة" id="drawer-close">
+        <i class="fas fa-times w-6 h-6 text-gray-700 dark:text-gray-200 hover:text-red-500 cursor-pointer"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col p-4 space-y-6 text-[18px] font-semibold">
+      <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+        href="./index.html">الرئيسية</a>
+      <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+        href="./Proudacts.html">المنتجات</a>
+      <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+        href="./offers.html">العروض</a>
+      <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400" href="./about.html">من
+        نحن</a>
+      <a class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+        href="./contact.html">تواصل معنا</a>
+    </nav>
+    <div class="mt-auto p-4 flex flex-col space-y-3 scroll-fade">
+      <button class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+        تسجيل الدخول
+      </button>
+      <button
+        class="bg-gray-200 dark:bg-gray-700 dark:text-white text-blue-700 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+        إنشاء حساب
+      </button>
+    </div>
+  </aside>
+  <!-------------------------------------------------------------- Proudacts --------------------------------------------------------------->
+  <section class="w-full bg-gray-50 dark:bg-gray-900 pt-20 pb-10 px-1 scroll-fade">
+    <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row gap-6 scroll-fade">
+      <aside
+        class="w-full md:w-1/4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow h-[495px] overflow-auto static md:sticky top-0 md:top-4 border border-[0.5px] border-gray-300 dark:border-white/20 scroll-fade">
+        <h2 class="text-xl font-bold mb-2 text-right text-gray-900 dark:text-white">
+          فلترة المنتجات
+        </h2>
+        <hr class="mb-4 border-gray-300 dark:border-white" />
+        <div class="mb-6 scroll-fade">
+          <h3 class="font-semibold mb-2 text-gray-800 dark:text-gray-200">
+            الفئات
+          </h3>
+          <ul class="space-y-2 text-gray-700 dark:text-gray-100">
+            <li>
+              <label class="flex items-center"><input checked="" class="ml-2" name="category" type="radio"
+                  value="الكل" />
+                الكل</label>
+            </li>
+            <li>
+              <label class="flex items-center"><input class="ml-2" name="category" type="radio" value="إلكترونيات" />
+                إلكترونيات</label>
+            </li>
+            <li>
+              <label class="flex items-center"><input class="ml-2" name="category" type="radio" value="ملابس" />
+                ملابس</label>
+            </li>
+            <li>
+              <label class="flex items-center"><input class="ml-2" name="category" type="radio" value="جمال وعناية" />
+                جمال وعناية</label>
+            </li>
+            <li>
+              <label class="flex items-center"><input class="ml-2" name="category" type="radio" value="منزل ومطبخ" />
+                منزل ومطبخ</label>
+            </li>
+          </ul>
+        </div>
+        <div class="mb-6 scroll-fade">
+          <h3 class="font-semibold mb-2 text-gray-800 dark:text-gray-200">
+            نطاق السعر
+          </h3>
+          <input class="w-full" id="priceRange" max="100000" min="0" step="1000" type="range" value="50000" />
+          <div class="flex justify-between text-sm mt-1 text-gray-700 dark:text-gray-200 scroll-fade">
+            <span id="currentPrice">50000 دج</span>
+            <span>100000 دج</span>
+          </div>
+        </div>
+        <div class="mb-6 scroll-fade">
+          <label class="flex items-center text-gray-800 dark:text-gray-200">
+            <input class="ml-2" id="availableOnly" type="checkbox" />
+            منتجات متوفرة فقط
+          </label>
+        </div>
+        <button
+          class="w-full bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 text-gray-700 dark:text-white font-semibold py-2 rounded-lg"
+          id="resetFilters">
+          إعادة ضبط الفلاتر
+        </button>
+      </aside>
+      <main class="w-full md:w-3/4 scroll-fade">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4 scroll-fade">
+          <div class="flex items-center gap-2 scroll-fade">
+            <!-- زر الشبكة -->
+            <button class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 dark:hover:bg-blue-800">
+              <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20">
+                <path
+                  d="M3 3h4v4H3V3zm5 0h4v4H8V3zm5 0h4v4h-4V3zM3 8h4v4H3V8zm5 0h4v4H8V8zm5 0h4v4h-4V8zM3 13h4v4H3v-4zm5 0h4v4H8v-4zm5 0h4v4h-4v-4z">
+                </path>
+              </svg>
+            </button>
+            <!-- زر القائمة -->
+            <button
+              class="p-2 rounded border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-gray-700">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+            <!-- عدد المنتجات -->
+            <span class="text-sm text-gray-500 dark:text-gray-300" id="productCount">1 منتج</span>
+          </div>
+          <!-- حقل البحث -->
+          <div class="relative w-full md:w-1/2 mr-auto scroll-fade">
+            <input
+              class="w-full border border-gray-300 dark:border-white/20 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring focus:border-blue-300 dark:focus:border-blue-600"
+              placeholder="ابحث عن منتج..." type="text" />
+            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-300"
+              fill="currentColor" viewbox="0 0 20 20">
+              <path clip-rule="evenodd"
+                d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM14 8a6 6 0 11-12 0 6 6 0 0112 0z"
+                fill-rule="evenodd"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 scroll-fade">
+          <div
+            class="product w-full sm:w-[18rem] bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden relative group border border-gray-200 dark:border-gray-700 scroll-fade"
+            data-available="false" data-category="جمال وعناية" data-price="5000">
+            <!-- الخصم -->
+            <div class="absolute bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-bl-xl z-30 scroll-fade">
+              %13 خصم
+            </div>
+            <!-- الصورة مع تأثير Hover -->
+            <div class="relative overflow-hidden scroll-fade">
+              <img alt="سماعة"
+                class="w-full h-52 object-cover transform transition-transform duration-700 group-hover:scale-105 z-10"
+                src="./images/8.jpeg" />
+              <!-- طبقة تعتيم -->
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-700 z-20 scroll-fade">
+              </div>
+            </div>
+            <!-- المحتوى -->
+            <div class="px-4 pb-4 scroll-fade">
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">ملابس</p>
+              <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">sports shoes</h2>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 overflow-hidden"
+                style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                الحذاء الرياضي هو نوع من الأحذية المصممة خصيصًا لتوفير الراحة، الدعم، والثبات أثناء ممارسة الأنشطة
+                البدنية
+                والرياضية. يتميز بخفة وزنه، ومرونة نعله، واحتوائه على وسادة داخلية لامتصاص الصدمات، مما يجعله مثاليًا
+                للجري،
+                التمارين الرياضية، أو الاستخدام اليومي.
+              </p>
+              <!-- السعر -->
+              <div class="flex items-center space-x-2 space-x-reverse mb-2 scroll-fade">
+                <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">3.500 دج</span>
+                <span class="line-through text-gray-400 dark:text-gray-500 text-sm">4.000 دج</span>
+              </div>
+              <!-- التقييم -->
+              <div class="flex items-center mb-4 scroll-fade">
+                <span class="text-yellow-400 text-xl">★ ★ ★ ★ ☆</span>
+              </div>
+              <!-- زر الشراء -->
+              <div class="flex justify-between items-center scroll-fade">
+                <a href="./Product_Page.html">
+                  <button
+                    class="buy-button bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                    اشترِ الآن
+                  </button>
+                </a>
+                <button
+                  class="add-to-cart border border-gray-300 dark:border-gray-600 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  🛒
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- المنتج الثاني -->
+          <div
+            class="product w-full sm:w-[18rem] bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden relative group border border-gray-200 dark:border-gray-700 scroll-fade"
+            data-available="true" data-category="ملابس" data-price="4000">
+            <!-- الخصم -->
+            <div class="absolute bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-bl-xl z-30 scroll-fade">
+              %13 خصم
+            </div>
+            <!-- الصورة مع تأثير Hover -->
+            <div class="relative overflow-hidden scroll-fade">
+              <img alt="سماعة"
+                class="w-full h-52 object-cover transform transition-transform duration-700 group-hover:scale-105 z-10"
+                src="./images/7.png" />
+              <!-- طبقة تعتيم -->
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-700 z-20 scroll-fade">
+              </div>
+            </div>
+            <!-- المحتوى -->
+            <div class="px-4 pb-4 scroll-fade">
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">إلكترونيات</p>
+              <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">Kemei KM-5027‏</h2>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 overflow-hidden"
+                style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                ماكينة الحلاقة Kemei KM-5027 هي أداة حلاقة احترافية متعددة الوظائف، مصممة خصيصًا لتمنحك تجربة قص دقيقة
+                وناعمة
+                سواء في المنزل أو في صالون الحلاقة.
+              </p>
+              <!-- السعر -->
+              <div class="flex items-center space-x-2 space-x-reverse mb-2 scroll-fade">
+                <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">3.500 دج</span>
+                <span class="line-through text-gray-400 dark:text-gray-500 text-sm">4.000 دج</span>
+              </div>
+              <!-- التقييم -->
+              <div class="flex items-center mb-4 scroll-fade">
+                <span class="text-yellow-400 text-xl">★ ★ ★ ★ ☆</span>
+              </div>
+              <!-- زر الشراء -->
+              <div class="flex justify-between items-center scroll-fade">
+                <a href="./Product_Page.html">
+                  <button
+                    class="buy-button bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                    اشترِ الآن
+                  </button>
+                </a>
+                <button
+                  class="add-to-cart border border-gray-300 dark:border-gray-600 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  🛒
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="product w-full sm:w-[18rem] bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden relative group border border-gray-200 dark:border-gray-700 scroll-fade"
+            data-available="true" data-category="جمال وعناية" data-price="5000">
+            <!-- الخصم -->
+            <div class="absolute bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-bl-xl z-30 scroll-fade">
+              %13 خصم
+            </div>
+            <!-- الصورة مع تأثير Hover -->
+            <div class="relative overflow-hidden scroll-fade">
+              <img alt="سماعة"
+                class="w-full h-52 object-cover transform transition-transform duration-700 group-hover:scale-105 z-10"
+                src="./images/8.jpeg" />
+              <!-- طبقة تعتيم -->
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-700 z-20 scroll-fade">
+              </div>
+            </div>
+            <!-- المحتوى -->
+            <div class="px-4 pb-4 scroll-fade">
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">ملابس</p>
+              <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">sports shoes</h2>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 overflow-hidden"
+                style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                الحذاء الرياضي هو نوع من الأحذية المصممة خصيصًا لتوفير الراحة، الدعم، والثبات أثناء ممارسة الأنشطة
+                البدنية
+                والرياضية. يتميز بخفة وزنه، ومرونة نعله، واحتوائه على وسادة داخلية لامتصاص الصدمات، مما يجعله مثاليًا
+                للجري،
+                التمارين الرياضية، أو الاستخدام اليومي.
+              </p>
+              <!-- السعر -->
+              <div class="flex items-center space-x-2 space-x-reverse mb-2 scroll-fade">
+                <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">3.500 دج</span>
+                <span class="line-through text-gray-400 dark:text-gray-500 text-sm">4.000 دج</span>
+              </div>
+              <!-- التقييم -->
+              <div class="flex items-center mb-4 scroll-fade">
+                <span class="text-yellow-400 text-xl">★ ★ ★ ★ ☆</span>
+              </div>
+              <!-- زر الشراء -->
+              <div class="flex justify-between items-center scroll-fade">
+                <a href="./Product_Page.html">
+                  <button
+                    class="buy-button bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                    اشترِ الآن
+                  </button>
+                </a>
+                <button
+                  class="add-to-cart border border-gray-300 dark:border-gray-600 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  🛒
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- المنتج الثاني -->
+          <div
+            class="product w-full sm:w-[18rem] bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden relative group border border-gray-200 dark:border-gray-700 scroll-fade"
+            data-available="true" data-category="ملابس" data-price="4000">
+            <!-- الخصم -->
+            <div class="absolute bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-bl-xl z-30 scroll-fade">
+              %13 خصم
+            </div>
+            <!-- الصورة مع تأثير Hover -->
+            <div class="relative overflow-hidden scroll-fade">
+              <img alt="سماعة"
+                class="w-full h-52 object-cover transform transition-transform duration-700 group-hover:scale-105 z-10"
+                src="./images/7.png" />
+              <!-- طبقة تعتيم -->
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-700 z-20 scroll-fade">
+              </div>
+            </div>
+            <!-- المحتوى -->
+            <div class="px-4 pb-4 scroll-fade">
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">إلكترونيات</p>
+              <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1">Kemei KM-5027‏</h2>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 overflow-hidden"
+                style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                ماكينة الحلاقة Kemei KM-5027 هي أداة حلاقة احترافية متعددة الوظائف، مصممة خصيصًا لتمنحك تجربة قص دقيقة
+                وناعمة
+                سواء في المنزل أو في صالون الحلاقة.
+              </p>
+              <!-- السعر -->
+              <div class="flex items-center space-x-2 space-x-reverse mb-2 scroll-fade">
+                <span class="text-blue-600 dark:text-blue-400 font-bold text-xl">3.500 دج</span>
+                <span class="line-through text-gray-400 dark:text-gray-500 text-sm">4.000 دج</span>
+              </div>
+              <!-- التقييم -->
+              <div class="flex items-center mb-4 scroll-fade">
+                <span class="text-yellow-400 text-xl">★ ★ ★ ★ ☆</span>
+              </div>
+              <!-- زر الشراء -->
+              <div class="flex justify-between items-center scroll-fade">
+                <a href="./Product_Page.html">
+                  <button
+                    class="buy-button bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold">
+                    اشترِ الآن
+                  </button>
+                </a>
+                <button
+                  class="add-to-cart border border-gray-300 dark:border-gray-600 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  🛒
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="hidden fixed bottom-4 right-4 bg-white border border-gray-300 p-4 rounded-lg shadow-lg text-sm max-w-xs w-full z-50 scroll-fade"
+            id="alert-box">
+            <h2 class="font-bold text-gray-800 mb-1" id="alert-title">
+              تنبيه
+            </h2>
+            <p class="text-gray-600" id="alert-message">
+              هذا المنتج مضاف مسبقًا إلى السلة.
+            </p>
+          </div>
+          <script></script>
+        </div>
+        <div class="hidden text-center w-full py-40 text-gray-500 dark:text-gray-400 scroll-fade"
+          id="noProductsMessage">
+          <p class="text-lg font-semibold mb-4 text-black dark:text-white">
+            لم يتم العثور على منتجات
+          </p>
+          <p class="mb-4 text-gray-700 dark:text-gray-300">
+            جرب تعديل معايير البحث الخاصة بك
+          </p>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg" id="resetButton">
+            إعادة ضبط الفلاتر
+          </button>
+        </div>
+        <script></script>
+      </main>
+    </div>
+  </section>
+  <!--------------------------------------------------------- Footer ------------------------------------------------------------------------->
+  <footer
+    class="w-full bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 mt-auto scroll-fade">
+    <!-- النشرة الإخبارية -->
+    <div class="w-full bg-blue-600 text-white py-10 px-4 sm:px-6 lg:px-8 text-center scroll-fade">
+      <div class="max-w-screen-xl mx-auto scroll-fade">
+        <h2 class="text-2xl font-bold mb-2">انضم إلى نشرتنا الإخبارية</h2>
+        <p class="mb-6">
+          اشترك في نشرتنا الإخبارية للحصول على آخر العروض والخصومات
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-2 max-w-md mx-auto scroll-fade">
+          <input class="flex-1 w-full px-4 py-2 rounded-md text-gray-800 dark:text-gray-900 focus:outline-none"
+            placeholder="البريد الإلكتروني" type="email" />
+          <button class="bg-green-500 hover:bg-green-600 transition px-4 py-2 rounded-md text-white font-semibold">
+            اشترك الآن
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- محتوى الفوتر -->
+    <div
+      class="pt-10 pb-10 max-w-8xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm border-t border-gray-300 dark:border-gray-700 scroll-fade">
+      <div class="scroll-fade">
+        <h3 class="text-blue-800 dark:text-blue-400 font-bold text-xl mb-2">
+          دي زاد شوب
+        </h3>
+        <p>
+          متجر إلكتروني جزائري يقدم أفضل المنتجات بأسعار تنافسية وجودة عالية.
+        </p>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-800 dark:text-gray-100 mb-2">
+          روابط سريعة
+        </h3>
+        <ul>
+          <li><a class="hover:text-blue-500" href="#">الرئيسية</a></li>
+          <li><a class="hover:text-blue-500" href="#">المنتجات</a></li>
+          <li><a class="hover:text-blue-500" href="#">العروض</a></li>
+          <li><a class="hover:text-blue-500" href="#">من نحن</a></li>
+          <li><a class="hover:text-blue-500" href="#">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-800 dark:text-gray-100 mb-2">
+          خدمة العملاء
+        </h3>
+        <ul>
+          <li><a class="hover:text-blue-500" href="#">الأسئلة الشائعة</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الشحن</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الإرجاع</a></li>
+          <li><a class="hover:text-blue-500" href="#">الشروط والأحكام</a></li>
+          <li><a class="hover:text-blue-500" href="#">سياسة الخصوصية</a></li>
+        </ul>
+      </div>
+      <div class="scroll-fade">
+        <h3 class="font-black text-lg tracking-tight text-gray-900 dark:text-gray-100 mb-2">
+          تواصل معنا
+        </h3>
+        <p>العنوان: الجزائر، العاصمة</p>
+        <p>الهاتف: +213 XXX XXX XXX</p>
+        <p>البريد الإلكتروني: info@dzshop.dz</p>
+        <div class="flex gap-3 mt-3 text-xl text-blue-500 scroll-fade">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fas fa-globe"></i></a>
+        </div>
+      </div>
+    </div>
+    <!-- الحقوق -->
+    <div class="text-center text-xs mt-8 mb-10 text-gray-500 dark:text-gray-400 scroll-fade">
+      © 2025 دي زاد شوب. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+  <button aria-label="العودة للأعلى"
+    class="hidden fixed bottom-6 right-2 z-50 bg-gradient-to-tr from-blue-500 to-purple-600 p-3 rounded-full shadow-xl hover:scale-110 transition transform duration-300 hover:shadow-2xl animate-pulse-slow group"
+    id="scrollTopBtn">
+    <svg class="h-6 w-6 text-white group-hover:-translate-y-1 transition-transform duration-300" fill="none"
+      stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 15l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+    </svg>
+  </button>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const elements = document.querySelectorAll('.scroll-fade');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+
+</html>
